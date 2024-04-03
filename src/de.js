@@ -1,15 +1,16 @@
 const assert = require('assert');
-const { getCellValue, writeOutputs, downloadXLSX, downloadJSDOM } = require('./utils');
+const { getCellValue, writeOutputs, downloadXLSX, downloadJSDOM, downloadCSV } = require('./utils');
 
 function rowToObject(worksheet, row) {
-  const col = n => getCellValue(worksheet, n, row);
+  const bank = worksheet[row];
+  //const col = n => getCellValue(worksheet, n, row);
   return {
-    code: col(0), // Bankleitzahl
-    hasOwnCode: col(1) === 1, // bankleitzahlführender Zahlungsdienstleister or not
-    name: col(2), // Bezeichnung
-    shortName: col(5), // Kurzbezeichnung
-    bic: col(7), // BIC (Business Identifier Code)
-    status: col(10), // A = added, M = modified, D = deleted
+    code: bank['Bankleitzahl'], // Bankleitzahl
+    hasOwnCode: bank['Merkmal'] === '1', // bankleitzahlführender Zahlungsdienstleister or not
+    name: bank['Bezeichnung'], // Bezeichnung
+    shortName: bank['Kurzbezeichnung'], // Kurzbezeichnung
+    bic: bank['BIC'], // BIC (Business Identifier Code)
+    status: bank['Änderungskennzeichen'], // A = added, M = modified, D = deleted
   };
 }
 
@@ -28,14 +29,19 @@ async function getWorksheet() {
   }
 
   const url = 'https://www.bundesbank.de' + box.getElementsByTagName('a')[1].getAttribute('href');
-  return downloadXLSX(url, 'Daten');
+
+  const banks = await downloadCSV(url, { separator: ';' }, 'utf8');
+
+
+  //return downloadXLSX(url, 'Daten');
+  return banks;
 }
 
 module.exports = async () => {
   const worksheet = await getWorksheet();
 
   const bankCodesObj = {};
-  for (let i = 2; worksheet['A' + i] !== undefined; i++) {
+  for (let i = 0; worksheet[i] !== undefined; i++) {
     const row = rowToObject(worksheet, i);
     if (row.status === 'D') continue; // ignore deleted entries
     const c = row.code;
