@@ -14,7 +14,7 @@ function rowToObject(worksheet, row) {
   };
 }
 
-async function getWorksheet() {
+async function getBankInfoFromCSV() {
   const document = await downloadJSDOM(
     'https://www.bundesbank.de/de/aufgaben/unbarer-zahlungsverkehr/serviceangebot/bankleitzahlen/download-bankleitzahlen-602592',
   );
@@ -30,19 +30,15 @@ async function getWorksheet() {
 
   const url = 'https://www.bundesbank.de' + box.getElementsByTagName('a')[1].getAttribute('href');
 
-  const banks = await downloadCSV(url, { separator: ';' }, 'utf8');
-
-
-  //return downloadXLSX(url, 'Daten');
-  return banks;
+  return await downloadCSV(url, { separator: ';' }, 'ISO-8859-1');
 }
 
 module.exports = async () => {
-  const worksheet = await getWorksheet();
+  const banks = await getBankInfoFromCSV();
 
   const bankCodesObj = {};
-  for (let i = 0; worksheet[i] !== undefined; i++) {
-    const row = rowToObject(worksheet, i);
+  for (let i = 0; banks[i] !== undefined; i++) {
+    const row = rowToObject(banks, i);
     if (row.status === 'D') continue; // ignore deleted entries
     const c = row.code;
     delete row.code;
