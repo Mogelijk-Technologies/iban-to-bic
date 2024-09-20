@@ -15,7 +15,7 @@ const bic = ibanToBic('DE51500105179975341634');
 
 `ibanToBic` returns undefined if the IBAN is invalid (checked internally using [ibantools](https://github.com/Simplify/ibantools)) or if no corresponding BIC was found.
 
-# Usage in PHP
+## Usage in PHP
 
 ```php
 use rleroi\IbanToBic;
