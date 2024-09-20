@@ -28,7 +28,6 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.GIT_CHECKOUT_TOKEN }}
           commit-message: Updated BIC/IBAN datasets.
           committer: GitHub Actions <github-actions@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
