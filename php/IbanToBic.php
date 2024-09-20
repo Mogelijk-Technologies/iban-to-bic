@@ -4,17 +4,20 @@ declare(strict_types=1);
 
 namespace Mogelijk\IbanToBic;
 
-class IbanToBic {
+class IbanToBic
+{
     private array $datasets = [];
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->loadDatasets();
     }
 
-    public function ibanToBic(string $iban): ?string {
+    public function ibanToBic(string $iban): ?string
+    {
         $iban = strtoupper($iban);
         $country = substr($iban, 0, 2);
-        if (!isset($this->datasets[$country])) {
+        if (! isset($this->datasets[$country])) {
             return null;
         }
 
@@ -42,20 +45,21 @@ class IbanToBic {
                 $bankCode = substr($iban, 4, 4);
                 break;
         }
-        if (!$bankCode) {
+        if (! $bankCode) {
             return null;
         }
 
         return $this->datasets[$country][$bankCode] ?? null;
     }
 
-    private function loadDatasets(): void {
-        $this->datasets['AT'] = json_decode(file_get_contents('../datasets/at.json'), true);
-        $this->datasets['BE'] = json_decode(file_get_contents('../datasets/be.json'), true);
-        $this->datasets['DE'] = json_decode(file_get_contents('../datasets/de.json'), true);
-        $this->datasets['ES'] = json_decode(file_get_contents('../datasets/es.json'), true);
-        $this->datasets['FR'] = json_decode(file_get_contents('../datasets/fr.json'), true);
-        $this->datasets['LU'] = json_decode(file_get_contents('../datasets/lu.json'), true);
-        $this->datasets['NL'] = json_decode(file_get_contents('../datasets/nl.json'), true);
+    private function loadDatasets(): void
+    {
+        $this->datasets['AT'] = json_decode(file_get_contents(__DIR__.'/../datasets/at.json'), true);
+        $this->datasets['BE'] = json_decode(file_get_contents(__DIR__.'/../datasets/be.json'), true);
+        $this->datasets['DE'] = json_decode(file_get_contents(__DIR__.'/../datasets/de.json'), true);
+        $this->datasets['ES'] = json_decode(file_get_contents(__DIR__.'/../datasets/es.json'), true);
+        $this->datasets['FR'] = json_decode(file_get_contents(__DIR__.'/../datasets/fr.json'), true);
+        $this->datasets['LU'] = json_decode(file_get_contents(__DIR__.'/../datasets/lu.json'), true);
+        $this->datasets['NL'] = json_decode(file_get_contents(__DIR__.'/../datasets/nl.json'), true);
     }
 }
