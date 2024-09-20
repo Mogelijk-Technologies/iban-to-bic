@@ -18,7 +18,7 @@ const bic = ibanToBic('DE51500105179975341634');
 ## Usage in PHP
 
 ```php
-use rleroi\IbanToBic;
+use Mogelijk\IbanToBic;
 
 $bic = (new IbanToBic())->ibanToBic('DE51500105179975341634');
 // $bic is now "INGDDEFFXXX"
