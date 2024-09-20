@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sigalor/iban-to-bic.git"
+    "url": "git+https://github.com/Mogelijk-Technologies/iban-to-bic.git"
   },
   "keywords": [
     "bic",
@@ -18,12 +18,12 @@
     "swift",
     "banking"
   ],
-  "author": "sigalor",
+  "author": "Mogelijk-Technologies",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sigalor/iban-to-bic/issues"
+    "url": "https://github.com/Mogelijk-Technologies/iban-to-bic/issues"
   },
-  "homepage": "https://github.com/sigalor/iban-to-bic#readme",
+  "homepage": "https://github.com/Mogelijk-Technologies/iban-to-bic#readme",
   "dependencies": {
     "ibantools": "^4.2.2"
   },

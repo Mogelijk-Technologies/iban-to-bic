@@ -1,0 +1,12 @@
+{
+    "name": "mogelijk-technologies/iban-to-bic",
+    "description": "IBAN to BIC PHP",
+    "autoload": {
+        "psr-4": {
+            "Mogelijk\\IbanToBic\\": "php/"
+        }
+    },
+    "require": {
+        "php": "^7.4"
+    }
+}

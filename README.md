@@ -15,23 +15,32 @@ const bic = ibanToBic('DE51500105179975341634');
 
 `ibanToBic` returns undefined if the IBAN is invalid (checked internally using [ibantools](https://github.com/Simplify/ibantools)) or if no corresponding BIC was found.
 
+# Usage in PHP
+
+```php
+use rleroi\IbanToBic;
+
+$bic = (new IbanToBic())->ibanToBic('DE51500105179975341634');
+// $bic is now "INGDDEFFXXX"
+```
+
 ## Usage in the browser
 
 iban-to-bic is really simple to use inside a browser. You can either pull the package from npm and build it with your favorite packaging tool or you can use it from a CDN like this:
 
-```
+```html
 <script type="text/javascript" src="https://unpkg.com/iban-to-bic@latest/dist/iban-to-bic.js">
 ```
 
 Or
 
-```
+```html
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/iban-to-bic@latest/dist/iban-to-bic.js">
 ```
 
 And then invoke it like this:
 
-```
+```html
 <script type="text/javascript">
 	window.ibanToBic.ibanToBic('********');
 </script>
@@ -43,7 +52,7 @@ Using this code makes it super comfortable to validate user input and provide au
 
 The following will fetch the newest data from the respective national bank authorities (e.g. Bundesbank in Germany or OeNB in Austria) and regenerate the files in the `datasets` and the `datasets-extended` directory:
 
-```
+```shell
 npm run generate
 ```
 
