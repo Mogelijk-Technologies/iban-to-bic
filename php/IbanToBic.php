@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mogelijk;
+namespace Mogelijk\IbanToBic;
 
 class IbanToBic
 {
